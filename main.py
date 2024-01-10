@@ -2,6 +2,9 @@ from fastapi import FastAPI,Body,HTTPException,status
 from pydantic import BaseModel
 from typing import Annotated
 from db import mycol
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 class FormData(BaseModel):
     fullName:str
@@ -12,6 +15,13 @@ class FormData(BaseModel):
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/from/submit")
